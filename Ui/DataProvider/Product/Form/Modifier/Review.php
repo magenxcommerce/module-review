@@ -59,7 +59,7 @@ class Review extends AbstractModifier
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @since 100.1.0
      */
     public function modifyMeta(array $meta)
@@ -85,12 +85,10 @@ class Review extends AbstractModifier
                                 'behaviourType' => 'simple',
                                 'externalFilterMode' => true,
                                 'imports' => [
-                                    'productId' => '${ $.provider }:data.product.current_product_id',
-                                    '__disableTmpl' => ['productId' => false],
+                                    'productId' => '${ $.provider }:data.product.current_product_id'
                                 ],
                                 'exports' => [
-                                    'productId' => '${ $.externalProvider }:params.current_product_id',
-                                    '__disableTmpl' => ['productId' => false],
+                                    'productId' => '${ $.externalProvider }:params.current_product_id'
                                 ],
                             ],
                         ],
@@ -119,7 +117,7 @@ class Review extends AbstractModifier
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @since 100.1.0
      */
     public function modifyData(array $data)
@@ -135,6 +133,7 @@ class Review extends AbstractModifier
      * Retrieve module manager instance using dependency lookup to keep this class backward compatible.
      *
      * @return ModuleManager
+     *
      * @deprecated 100.2.0
      */
     private function getModuleManager()

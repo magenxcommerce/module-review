@@ -37,14 +37,12 @@ class Detailed extends \Magento\Framework\View\Element\Template
     }
 
     /**
-     * Returns block html
-     *
      * @return string
      */
     protected function _toHtml()
     {
         $entityId = $this->_request->getParam('id');
-        if ((int)$entityId <= 0) {
+        if (intval($entityId) <= 0) {
             return '';
         }
 

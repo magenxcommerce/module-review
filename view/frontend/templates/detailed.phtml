@@ -4,10 +4,9 @@
  * See COPYING.txt for license details.
  */
 
-/**
- * @var \Magento\Review\Block\Rating\Entity\Detailed $block
- * @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer
- */
+// @codingStandardsIgnoreFile
+
+/** @var \Magento\Review\Block\Rating\Entity\Detailed $block */
 ?>
 <?php if (!empty($collection) && $collection->getSize()): ?>
     <div class="table-wrapper">
@@ -20,12 +19,8 @@
                         <th class="label" scope="row"><?= $block->escapeHtml(__($_rating->getRatingCode())) ?></th>
                         <td class="value">
                             <div class="rating box">
-                                <div class="rating"/>
+                                <div class="rating" style="width:<?= /* @noEscape */ ceil($_rating->getSummary()) ?>%;"></div>
                             </div>
-                            <?= /* @noEscape */ $secureRenderer->renderStyleAsTag(
-                                "width:" . /* @noEscape */ ceil($_rating->getSummary()) . "%;",
-                                'div.rating.box div.rating'
-                            ) ?>
                         </td>
                     </tr>
                 <?php endif; ?>

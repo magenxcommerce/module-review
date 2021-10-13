@@ -5,17 +5,16 @@
  */
 namespace Magento\Review\Model\ResourceModel\Review\Product;
 
-use Magento\Catalog\Model\ResourceModel\Product\Collection\ProductLimitationFactory;
 use Magento\Eav\Model\Entity\Attribute\AbstractAttribute;
 use Magento\Framework\DB\Select;
 use Magento\Framework\EntityManager\MetadataPool;
+use Magento\Catalog\Model\ResourceModel\Product\Collection\ProductLimitationFactory;
 
 /**
  * Review Product Collection
  *
  * @api
  * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
- * @SuppressWarnings(PHPMD.CookieAndSessionMisuse)
  * @since 100.0.2
  */
 class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
@@ -404,20 +403,11 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
     public function getResultingIds()
     {
         $idsSelect = clone $this->getSelect();
-        $data = $this->getConnection()
-            ->fetchAll(
-                $idsSelect
-                    ->reset(Select::LIMIT_COUNT)
-                    ->reset(Select::LIMIT_OFFSET)
-                    ->columns('rt.review_id')
-            );
-
-        return array_map(
-            function ($value) {
-                return $value['review_id'];
-            },
-            $data
-        );
+        $idsSelect->reset(Select::LIMIT_COUNT);
+        $idsSelect->reset(Select::LIMIT_OFFSET);
+        $idsSelect->reset(Select::COLUMNS);
+        $idsSelect->columns('rt.review_id');
+        return $this->getConnection()->fetchCol($idsSelect);
     }
 
     /**
@@ -553,7 +543,6 @@ class Collection extends \Magento\Catalog\Model\ResourceModel\Product\Collection
      * Not add store ids to items
      *
      * @return $this
-     * @since 100.2.8
      */
     protected function prepareStoreId()
     {

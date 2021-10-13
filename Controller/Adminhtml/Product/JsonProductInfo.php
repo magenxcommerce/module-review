@@ -15,9 +15,6 @@ use Magento\Catalog\Api\ProductRepositoryInterface;
 use Magento\Framework\DataObject;
 use Magento\Framework\Controller\ResultFactory;
 
-/**
- * Represents product info in json
- */
 class JsonProductInfo extends ProductController implements HttpGetActionInterface
 {
     /**
@@ -44,15 +41,13 @@ class JsonProductInfo extends ProductController implements HttpGetActionInterfac
     }
 
     /**
-     * Execute controller
-     *
      * @return \Magento\Framework\Controller\Result\Json
      */
     public function execute()
     {
         $response = new DataObject();
         $id = $this->getRequest()->getParam('id');
-        if ((int)$id > 0) {
+        if (intval($id) > 0) {
             $product = $this->productRepository->getById($id);
             $response->setId($id);
             $response->addData($product->getData());

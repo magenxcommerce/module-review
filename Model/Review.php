@@ -3,10 +3,8 @@
  * Copyright © Magento, Inc. All rights reserved.
  * See COPYING.txt for license details.
  */
-
 namespace Magento\Review\Model;
 
-use Magento\Framework\DataObject;
 use Magento\Catalog\Model\Product;
 use Magento\Framework\DataObject\IdentityInterface;
 use Magento\Review\Model\ResourceModel\Review\Product\Collection as ProductCollection;
@@ -101,7 +99,6 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
     /**
      * Review model summary
      *
-     * @deprecated 100.3.3 Summary factory injected as separate property
      * @var \Magento\Review\Model\Review\Summary
      */
     protected $_reviewSummary;
@@ -216,7 +213,6 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
     /**
      * Get entity summary
      *
-     * @deprecated 100.3.3
      * @param Product $product
      * @param int $storeId
      * @return void
@@ -304,12 +300,10 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
     }
 
     /**
-     * Append review summary data object to product collection
+     * Append review summary to product collection
      *
-     * @deprecated 100.3.3
      * @param ProductCollection $collection
      * @return $this
-     * @throws \Magento\Framework\Exception\NoSuchEntityException
      */
     public function appendSummary($collection)
     {
@@ -318,7 +312,7 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
             $entityIds[] = $item->getEntityId();
         }
 
-        if (count($entityIds) === 0) {
+        if (sizeof($entityIds) == 0) {
             return $this;
         }
 
@@ -332,9 +326,6 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
                 if ($summary->getEntityPkValue() == $item->getEntityId()) {
                     $item->setRatingSummary($summary);
                 }
-            }
-            if (!$item->getRatingSummary()) {
-                $item->setRatingSummary(new DataObject());
             }
         }
 
@@ -361,7 +352,7 @@ class Review extends \Magento\Framework\Model\AbstractModel implements IdentityI
     {
         $store = $this->_storeManager->getStore($store);
         if ($store) {
-            return in_array($store->getId(), (array)$this->getStores());
+            return in_array($store->getId(), (array) $this->getStores());
         }
         return false;
     }

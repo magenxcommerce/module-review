@@ -121,9 +121,9 @@ class Detailed extends \Magento\Backend\Block\Template
                 )->setStoreFilter(
                     $stores
                 )->setPositionOrder()->load()->addOptionToItems();
-                if ((int)$this->getRequest()->getParam('id')) {
+                if (intval($this->getRequest()->getParam('id'))) {
                     $this->_voteCollection = $this->_votesFactory->create()->setReviewFilter(
-                        (int)$this->getRequest()->getParam('id')
+                        intval($this->getRequest()->getParam('id'))
                     )->addOptionInfo()->load()->addRatingOptions();
                 }
             }
